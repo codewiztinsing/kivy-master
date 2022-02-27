@@ -1,0 +1,279 @@
+#:import Factory kivy.factory.Factory
+
+WindowManager:
+    LoginWindow:
+    LandingWindow:
+    AccordionWindow:
+    CheckBoxWindow:
+    PopWindow:
+    
+
+<LoginWindow>:
+    name: "login"
+
+    GridLayout:
+        cols:1
+
+        Screen:
+
+
+            MDCard:
+		        size_hint: None, None
+		        size: 300, 400
+		        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+		        elevation: 10
+		        padding: 25
+		        spacing: 25
+		        orientation: 'vertical'
+
+
+
+		        MDLabel:
+		            id: welcome_label
+		            text: "WELCOME"
+		            font_size: 40
+		            halign: 'center'
+		            size_hint_y: None
+		            height: self.texture_size[1]
+		            padding_y: 15
+
+		        MDTextFieldRound:
+		            id: user
+		            hint_text: "username"
+		            icon_right: "account"
+		            size_hint_x: None
+		            width: 200
+		            font_size: 18
+		            pos_hint: {"center_x": 0.5}
+
+		        MDTextFieldRound:
+		            id: password
+		            hint_text: "password"
+		            icon_right: "eye-off"
+		            size_hint_x: None
+		            width: 200
+		            font_size: 18
+		            pos_hint: {"center_x": 0.5}
+		            password: True
+
+
+		        MDRoundFlatButton:
+		            text: "LOG IN"
+		            font_size: 12
+		            pos_hint: {"center_x": 0.5}
+		            on_press: root.manager.current = 'landing'
+
+	        	MDRoundFlatButton:
+		            text: "CLEAR"
+		            font_size: 12
+		            pos_hint: {"center_x": 0.5} 
+		            on_press: app.clear()           
+
+	        	Widget:
+		            size_hint_y: None
+		            height: 10
+
+<LandingWindow>:
+    name: "landing"
+
+	BoxLayout:
+	    orientation: 'vertical'
+	    MDToolbar:
+	        title: "Bottom Navbar"
+	        md_bg_color: .2,.2,.2,1
+	        specific_text_color: 1,1,1,1
+	    BoxLayout:
+	    	size_hint_y: None
+		    height: 50
+		    MDRoundFlatButton:
+		    	text: "Back"
+			    font_size: 12
+			    pos_hint: {"center_x": 0.5}
+			    on_press: root.manager.current = 'login'
+
+
+
+			Widget:
+			    size_hint_y: None
+			    height: 10
+
+		    MDRoundFlatButton:
+		    	text: "next"
+			    font_size: 12
+			    pos_hint: {"center_x": 0.5}
+			    on_press: root.manager.current = 'accordion'
+
+
+
+	    MDBottomNavigation:
+	        #color stuff
+	        #panel_color: 0,0,1,1
+
+	        MDBottomNavigationItem:
+	            name: 'screen 1'
+	            text: "python"
+	            icon: 'language-python'
+
+	            MDLabel:
+	                text: "Python"
+	                halign: 'center'
+
+	        MDBottomNavigationItem:
+	            name: 'screen 2'
+	            text: "javascript"
+	            icon: 'language-javascript'
+
+	            MDLabel:
+	                text: "learn javascript mr Chabulo free with $0!"
+	                halign: 'center'
+
+
+	        MDBottomNavigationItem:
+	            name: 'screen 3'
+	            text: "Java"
+	            icon: 'language-java'
+
+	            MDLabel:
+	                text: "my java ninjas how are you"
+	                halign: 'center'
+
+
+<AccordionWindow>:
+	name: "accordion"
+	BoxLayout:
+		orientation:"vertical"
+		size:root.width,root.height
+		BoxLayout:
+			size_hint_y: None
+		    height: 50
+
+			MDRoundFlatButton:
+			    text: "Back"
+				font_size: 12
+				pos_hint: {"center_x": 0.5}
+				on_press: root.manager.current = 'login'
+				padding: [dp(20),dp(10),dp(20),dp(10)]
+
+			Widget:
+			    size_hint_y: None
+			    height: 10
+
+
+			MDRoundFlatButton:
+			    text: "next"
+				font_size: 12
+				pos_hint: {"center_x": 0.5}
+				on_press: root.manager.current = 'checkbox'
+
+		Accordion:
+			orientation:"vertical"
+			AccordionItem:
+				title:"java"
+				Label:
+					text:"java is most important programmig"
+					font_size:32
+
+			AccordionItem:
+				title:"python"
+				Label:
+					text:"python is used in data science"
+
+
+			AccordionItem:
+				title:"javascript"
+				Label:
+					text:"javascript the king of web world."
+					font_size:32
+
+
+
+<CheckBoxWindow>:
+	name:"checkbox"
+	BoxLayout:
+		orientation:"vertical"
+		size:root.width,root.height
+
+		BoxLayout:
+			size_hint_y: None
+		    height: 50
+
+			MDRoundFlatButton:
+			    text: "Back"
+				font_size: 12
+				pos_hint: {"center_x": 0.5}
+				on_press: root.manager.current = 'accordion'
+				padding: [dp(20),dp(10),dp(20),dp(10)]
+
+			Widget:
+			    size_hint_y: None
+			    height: 10
+
+
+			MDRoundFlatButton:
+			    text: "next"
+				font_size: 12
+				pos_hint: {"center_x": 0.5}
+				on_press: root.manager.current = 'popup'
+
+
+		Label:
+			text:"Select favorite programming languages"
+			font_size:20
+		GridLayout:
+			cols:2
+			Label:
+				text:"python"
+				font_size:22
+			CheckBox:
+				on_active:None
+
+			Label:
+				text:"java"
+				font_size:22
+			CheckBox:
+				on_active:None
+
+
+			Label:
+				text:"javascript"
+				font_size:22
+			CheckBox:
+				on_active:None
+
+<MyPopup@Popup>:
+	auto_dismiss:False
+	size_hint:0.5,0.2
+	title:"Do you want to exit"
+	font_size:24
+	Button:
+		text:"Close me"
+		on_release:root.dismiss()
+
+<PopWindow>:
+	name:"popup"
+	BoxLayout:
+		orientation:"vertical"
+		size:root.width,root.height
+
+		BoxLayout:
+			size_hint_y: None
+		    height: 10
+
+			MDRoundFlatButton:
+			    text: "Back"
+				font_size: 12
+				pos_hint: {"center_x": 0.5}
+				on_press: root.manager.current = 'login'
+				padding: [dp(20),dp(10),dp(20),dp(10)]
+	
+		Label:
+			text:"have you got important information"
+			color:"blue"
+		MDRoundFlatButton:
+			text: "close"
+			color:"red"
+			font_size: 12
+			pos_hint: {"center_x": 0.5}
+			on_press:Factory.MyPopup().open()
+
+
